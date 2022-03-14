@@ -4,18 +4,17 @@ import Todo from './models/todo';
 import NewTodo from './components/NewTodo';
 
 function App() {
-  const [addTodo, setAddTodo]= useState('')
+  const [addTodo, setAddTodo]= useState<Todo[]>([])
   const addTodoHandler = (todoText: string) => {
-    setAddTodo(todoText)
+   const newTodo = new Todo (todoText)
+   setAddTodo((prevTodos) => {
+     return  prevTodos.concat(newTodo)
+   })
   }
-  const todos = [
-    new Todo (addTodo),
-
-  ];
   return (
     <div>
       <NewTodo  onAddTodo={addTodoHandler}/>
-      <Todos items={todos}/>
+      <Todos items={addTodo}/>
     </div>
   );
 }
